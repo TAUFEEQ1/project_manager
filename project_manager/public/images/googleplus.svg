@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   version="1.1"
+   id="svg2"
+   viewBox="0 0 24 24"
+   role="img"
+   aria-labelledby="simpleicons-googleplus-icon">
+  <metadata
+     id="metadata11">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title>Google+ icon</dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <defs
+     id="defs9" />
+  <title
+     id="simpleicons-googleplus-icon">Google+ icon</title>
+  <path
+     style="fill:#ffffff"
+     id="path5"
+     d="m 10.13146,9.8150155 0,1.1343095 2.169088,0 c -0.08656,0.487246 -0.65548,1.42709 -2.167087,1.42709 -1.3029533,0 -2.3672322,-0.935513 -2.3672322,-2.088879 0,-1.1529325 1.0617771,-2.0884454 2.3657312,-2.0884454 0.743044,0 1.240408,0.2741572 1.523615,0.510201 l 1.03726,-0.863617 C 12.027348,7.3064554 11.163715,6.9816245 10.133461,6.9816245 8.0184133,6.9807583 6.3111638,8.4619871 6.3111638,10.287536 c 0,1.82555 1.7082502,3.306779 3.8202962,3.306779 2.206614,0 3.668685,-1.341768 3.668685,-3.231418 0,-0.216986 -0.02702,-0.3833005 -0.06005,-0.5478815 l -3.608641,0 z m 8.188494,0 -1.092301,0 0,-0.945474 -1.092299,0 0,0.945474 -1.091799,0 0,0.9446085 1.0928,0 0,0.945908 1.095302,0 0,-0.945908 1.088297,0" />
+</svg>
