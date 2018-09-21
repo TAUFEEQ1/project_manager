@@ -12,8 +12,8 @@ class ProjectsController extends Controller
     private function Validator(){
         try{
             if(session('username') && session('type') == 'Admin'){
-                $this->$username = session('username');
-                $this->$account_type = session('type');
+                // $this->$username = session('username');
+                // $this->$account_type = session('type');
                 return true;
             }
             else{
@@ -57,12 +57,14 @@ class ProjectsController extends Controller
     public function store(Request $request)
     {
         $project = new Projects;
-        $project->Name = $request->post('pName');
-        $project->TasksNumber = $request->post('taskNo');
-        $project->Duration = $request->post('Duration');
-        $project->StartDate = $request->post('StartDate');
-        $project->EndDate = $request->post('EndDate');
-        $project->Location = $request->post('location');
+        $data = $request->post('data');
+        $project->Name = $data["pName"];
+        $project->TasksNumber = $data["taskNo"];
+        $project->Duration = $data["Duration"];
+        $project->StartDate = $data["StartDate"];
+        $project->EndDate = $data["EndDate"];
+        $project->Location = $data["location"];
+        $project->save();
         //
     }
 
@@ -98,6 +100,18 @@ class ProjectsController extends Controller
     public function update(Request $request, Projects $projects)
     {
         //
+    }
+    public function archive(Request $request){
+        $pid = $request->post('projectId');
+        $project = Projects::find($pid);
+        $project->Archived = true;
+        $project->save();
+    }
+    public function unarchive(Request $request){
+        $pid = $request->post('projectId');
+        $project = Projects::find($pid);
+        $project->Archived = false;
+        $project->save();
     }
 
     /**

@@ -22,7 +22,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 #main_container {
   font-family:Roboto;
   -moz-osx-font-smoothing: grayscale;

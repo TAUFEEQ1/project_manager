@@ -27,8 +27,12 @@ class DashboardController extends Controller{
 		if($check){
 			$query = $request->post('query');
 			if($query== "projects"){
-				$results = Projects::all();
+				$results = Projects::where('Archived',false)->get();
 				return response()->json(["message"=>200,"info"=>$results]);
+			}
+			elseif($query== "archived"){
+				$results = Projects::where('Archived',1)->get();
+				return response()->json(["message"=>200, "info"=>$results]);
 			}
 		}
 		else{

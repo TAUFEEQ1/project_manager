@@ -1,35 +1,35 @@
 <template>
 	<div class="row">
-		<table class="table table-hover table-responsive">
+		<table class="table table-hover table-responsive col-md-12 col-sm-12">
 			<thead class="bg-light">
-				<th class="col">Name</th>
-				<th class="col">O.Qty</th>
-				<th class="col">C.Qty</th>
-				<th class="col">Add / Reduce</th>
-				<th class="col">Scaling</th>
+				<th class="col-3">Name</th>
+				<th class="col-1">O.Qty</th>
+				<th class="col-1">C.Qty</th>
+				<th class="col-3">Add / Reduce</th>
+				<th class="col-3">Scaling</th>
 			</thead>
 			<tbody>
 				<tr v-for="(item,index) of resrcs">
-					<td class="mr-5">
+					<td>
+						<input type="checkbox" v-model="checked[index]"/>
 						{{ item.Name }}
 					</td>
-					<td class="ml-5">
+					<td>
 						{{ item.OriginalQuantity }}
 					</td>
 					<td>
 						{{ item.Quantity }}
 					</td>
-					<td class="ml-5">
-						<form @submit.prevent="chQuantity(item.id, index)" class="form-inline">
-							<span>
-								<input type="number" class="form-control col-md-4" v-model="tempVal[index]">
-								<button type="submit" class="btn btn-primary">&radic;</button>
-							</span>
+					<td>
+						<form @submit.prevent="chQuantity(item.id, index)" class="col-md-12">
+							<input type="number" class="form-control col-md-6" v-model="tempVal[index]" style="display:inline;">
+							<button type="submit" class="btn btn-primary">&radic;</button>
 						</form>
 					</td>
 					<td>
-						<form class="form-inline">
-							<input type="text" class="form-control" v-model="item.Grouping">
+						<form class="form">
+								<input type="text" class="form-control col-md-8" v-model="item.Grouping" style="display: inline;">
+								<button type="submit" class="btn btn-success">&crarr;</button>
 						</form>
 					</td>
 				</tr>
@@ -49,7 +49,7 @@
 				taskid:'',
 				resrcs:{},
 				tempVal:[],
-				add_rem:[],
+				checked:[]
 			}
 		},
 		created(){
@@ -65,12 +65,24 @@
 				).then(response=>{
 					this.resrcs = response.data;
 					this.tempVal = this.tempVal.fill(0,0,response.length-1);
-					this.add_rem = this.add_rem.fill(0,1,response.length-1);
+					this.checked = this.add_rem.fill(0,0,response.length-1);
 				});
 			},
 			chQuantity(id,index){
-				this.$axios.post('http://pm.glassociates.engineering/resources/edit',{ rsrcId:id,rsrcQty:this.tempVal[index],option:add_rem[index] }).then(response=>{
-					this.fetch_data();
+				this.$axios.post('http://pm.glassociates.engineering/resourcez/cqty',{ rsrcId:id,rsrcQty:this.tempVal[index] }).then(response=>{
+					var resInfo = response.data;
+					var i = 0;
+					var data = this.resrcs;
+					for(i in data){
+						if(data[i].id == id){
+							this.resrcs[i].Quantity = resInfo.Quantity;
+							this.resrcs[i].OriginalQuantity = resInfo.OriginalQuantity;
+							break;
+						}
+						else{
+							continue;
+						}
+					}
 
 				});
 			},
@@ -81,17 +93,24 @@
 	}
 </script>
 <style scoped>
-.first{
-	width:10%;
-}
+/*.row{
+	padding:-10px;
+	max-height:300px;
+	overflow-y:scroll;
+	position:fixed;
+	bottom:180px;
+}*/
+	
 table>tbody{
 	background-color:white;
 }
-input[type=number]::-webkit-inner-spin-button, 
-input[type=number]::-webkit-outer-spin-button { 
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    appearance: none;
-    margin: 0; 
+@media screen and (-webkit-min-device-pixel-ratio:0) { 
+/* Safari and Chrome */
+.col-3 {
+ width:16%;
+}
+.col-1{
+	width:6%;
+}
 }
 </style>

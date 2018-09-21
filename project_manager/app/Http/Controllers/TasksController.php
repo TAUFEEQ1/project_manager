@@ -3,10 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Tasks;
+use App\Projects;
 use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
 use App\Assignments;
-use Guzzle\Http\Client;
+use GuzzleHttp\Client;
 
 class TasksController extends Controller
 {
@@ -110,15 +111,34 @@ class TasksController extends Controller
         //
     }
     /**
-        * Compute
+        * Compute Method
     */
     public function compute(Request $request)
     {
         $client = new Client();
-        $projectid = $request->post('projid');
-        $response =  $client->get('http://compute.glassociates.engineering',['projid'=>$projectid]);
-        $response = $response->getBody();
-        return response()->json($response);        
+        $projectid = $request->get('projectid');
+        $response =  $client->get('http://compute.glassociates.engineering/tasks', ['query' => ['projid' => $projectid ]]);
+        $respond = $response->getBody();
+        $respond = json_decode($respond);
+
+        $project = Projects::find($projectid);
+        $project->Duration = $respond->duration;
+        $project->save();
+
+        $projectStart = $project->StartDate;
+        foreach($respond->task_data as $task){
+            $identity = $task->taskid;
+            $taskz = Tasks::find($identity);
+            $taskz->earlyStart = $task->earlystart;
+            $taskz->lateStart = $task->latestart;
+            $taskz->earlyFinish = $task->earlyfinish;
+            $taskz->lateFinish = $task->latefinish;
+            $taskz->save();
+        }
+        $reqcols = array('TaskId','Progress','Duration','earlyStart','earlyFinish','lateStart','lateFinish','PreceedingTasks');
+        $tasks = Tasks::where('ProjectId',$projectid)->get($reqcols);
+        $silvous = array("task_data"=>$tasks,"duration"=>$respond->duration,"critical_tasks"=>$respond->criticaltasks,"start_date"=>$projectStart);
+        return response()->json($silvous);     
     }
 
 }

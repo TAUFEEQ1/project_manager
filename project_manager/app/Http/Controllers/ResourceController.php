@@ -64,9 +64,22 @@ class ResourceController extends Controller
      * @param  \App\Resources  $resources
      * @return \Illuminate\Http\Response
      */
-    public function edit(Resources $resources)
+    public function edit(Request $request)
     {
-        //
+        
+    }
+
+    public function cqty(Request $request){
+        $quantity = $request->post('rsrcQty');
+        $resourceId = $request->post('rsrcId');
+        $resource = Resources::find($resourceId);
+        $resource->Quantity = $resource->Quantity + $quantity;
+        if($quantity>0){
+            $resource->OriginalQuantity = $resource->OriginalQuantity + $quantity;    
+        }
+        $resource->save();
+        $data = array('Quantity'=>$resource->Quantity, 'OriginalQuantity'=>$resource->OriginalQuantity);  
+        return response()->json($data);
     }
 
     /**

@@ -23,7 +23,7 @@
 								<button @click="showModal('projects')" class="nav-link btn btn-primary btn-sm">Create Project</button>
 							</li>
 							<li class="nav-item mt-2">
-								<router-link class="nav-link" to="/dashboard/projects/archived">Archives</router-link>
+								<router-link class="nav-link" to="/dashboard/archived">Archives</router-link>
 							</li>
 						</ul>
 					</li>
@@ -169,20 +169,22 @@ export default {
   },
   methods:{
   	Date_correction(date){
-  		date_obj = new Date(this.startDate);
-  		yr = date_obj.getFullYear();
-  		mm = date_obj.getMonth();
-  		dd = date_obj.getDate();
-  		actualDate = yr + '-'+ mm + '-'+ dd;
+  		var date_obj = new Date(date);
+  		var yr = date_obj.getFullYear();
+  		var mm = date_obj.getMonth();
+  		var dd = date_obj.getDate();
+  		var actualDate = yr + '-'+ mm + '-'+ dd;
   		return actualDate;
   	},
   	checkForm(e){
-  		if(this.projectName && this.tasksNo && this.duration && this.startDate && this.endDate){
-  			startDate = this.Date_correction(this.startDate);
-  			endDate = this.Date_correction(this.endDate);
-  			data = { pName:this.projectName,taskNo:this.taskNo, Duration:this.Duration, StartDate:startDate,EndDate:endDate };
-  			this.$axios.post('http://pm.glassociates.engineering/projects/create',{ data:data });
-  			this.hideModal();
+  		if(this.projectName && this.tasksNo && this.duration && this.startDate && this.endDate && this.location){
+  			var startDate = this.Date_correction(this.startDate);
+  			var endDate = this.Date_correction(this.endDate);
+  			var data = { pName:this.projectName,taskNo:this.tasksNo, Duration:this.duration, StartDate:startDate,EndDate:endDate,location:this.location };
+  			this.$axios.post('http://pm.glassociates.engineering/projectz2/create',{ data:data }).then(response=>{
+  				console.log(response.data);
+  			});
+  			this.hideModal('projects');
   		}
   		else{
   			var data = new Array();
@@ -221,7 +223,7 @@ export default {
   }
 }
 </script>
-<style>
+<style scoped>
 #menus{
 	border-radius:4px;
 	box-shadow: 2px 4px 5px #888888;

@@ -1,19 +1,11 @@
 <template>
-	<div class="row">
-		<ul class="list-unstyled list-inline">
-			<li class="list-inline-item">
-				<router-link class="task_link btn btn-primary" :to="{ name:'resources', query:{ taskid: taskid }}">Resources</router-link>
-			</li>
-			<li class="list-inline-item">
-				<router-link class="task_link btn btn-primary" :to="{ name:'workers', params:{ taskid:taskid }}">Workers</router-link>
-			</li>
-			<li class="list-inline-item">
-				<router-link class="task_link btn btn-primary" :to="{ name:'metadata',params:{ taskid:taskid }}">Meta</router-link>
-			</li>
-		</ul>
-		<div class="row">
-			<router-view></router-view>
-		</div>
+	<div class="p-2">
+		<nav class="nav col-md-12 mb-2">
+  			<router-link class="task_link btn btn-primary nav-link active mr-3" :to="{ name:'resources', query:{ taskid: taskid }}">Resources</router-link>
+  			<router-link class="task_link btn btn-primary nav-link mr-3" :to="{ name:'workers', params:{ taskid:taskid }}">Workers</router-link>
+  			<router-link class="task_link btn btn-primary mr-2" :to="{ name:'metadata',params:{ taskid:taskid }}">Meta</router-link>
+		</nav>
+		<router-view></router-view>
 	</div>
 </template>
 <script>
@@ -34,13 +26,10 @@
 	}
 </script>
 <style scoped>
+	nav{
+		margin:auto;
+	}
 	.task_link{
 		transform: skewX(-14deg);
-	}
-	.row{
-		margin-left:10px;
-	}
-	li{
-		margin-bottom:100px;
 	}
 </style>

@@ -132,7 +132,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 #lform {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;

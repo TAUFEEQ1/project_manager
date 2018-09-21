@@ -14,7 +14,10 @@
 			</thead>
 			<tbody>
 				<tr v-for="item in Taskz">
-					<th scope="row">{{ 'p' + item.ProjectId.toString() }}</th>
+					<th scope="row">
+						<input type="checkbox"/>
+						{{ 'p' + item.ProjectId.toString() }}
+					</th>
 					<td><button class="btn btn-link" @click="showTask(item.TaskId)">{{ 't' + item.TaskId }}</button></td>
 					<td>
 						<b-btn :id="'b'+item.TaskId.toString()" variant="primary">
@@ -79,7 +82,7 @@
 				</div>
 				<button type="submit" class="btn btn-primary">Submit</button>
 				&nbsp; &nbsp; Out of {{ overall }}&nbsp; &nbsp;
-				<button class="btn bg-light">Edit Mode</button>
+				<button class="btn btn-danger">Delete</button>
 			</form>
 		</div>
 	</div>

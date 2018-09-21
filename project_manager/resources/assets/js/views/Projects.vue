@@ -1,6 +1,7 @@
 <template>
 <div class="row" id="mother">
-	<div v-for="item in projectz" class="card mr-4 panel mt-2" style="width:45%">
+	
+	<div v-for="(item,index) in projectz" class="card mr-4 panel mt-2" style="width:45%">
 		<div class="card-body">
 			<div class="ptitle card-title">
 				<h3 class="text-center">{{ item.Name }}</h3>
@@ -19,9 +20,11 @@
 				</div>
 			</div>
 			<p class="card-text pfooter">
-				<router-link class="btn btn-primary col-md-3" :to="{ path:'/dashboard/projects/details',params:{ projectId: item.id }}">More..</router-link>
+				<router-link class="btn btn-primary col-md-3" :to="{ path:'/dashboard/details',query:{ projectId: item.id }}">More..</router-link>
 				<router-link class="btn btn-success col-md-3" :to="{ path:'/dashboard/projects/modify',params:{ projectId: item.id}}">Modify</router-link>
-				<router-link class="btn btn-danger col-md-3" :to="{ path:'/dashboard/projects/archive',params:{ projectId: item.id}}">Archive</router-link>
+				<button class="btn btn-danger col-md-3" @click="archive(item.id,index)">
+					Archive
+				</button>
 			</p>
 		</div>
 	</div>
@@ -59,6 +62,11 @@
 		methods:{
 			loadProjects(response){
 				this.projectz = response.info;
+			},
+			archive(identity,index){
+				this.$axios.post('http://pm.glassociates.engineering/projectz1/archive',{ projectId: identity}).then(response=>{
+					this.$delete(this.projectz,index);
+				});
 			},
 			make_chart(projectId,status){
 				 var data = {
@@ -106,6 +114,7 @@
 	}
 	.panel{
 		font-size:14px;
+		max-height:325px;
 	}
 	canvas{
 		display:inline-block;
