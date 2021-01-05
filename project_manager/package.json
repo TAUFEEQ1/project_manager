@@ -11,7 +11,7 @@
     },
     "devDependencies": {
         "@types/chart.js": "^2.7.31",
-        "axios": "^0.17.1",
+        "axios": "^0.21.1",
         "bootstrap-sass": "^3.3.7",
         "cross-env": "^5.1",
         "jquery": "^3.3.1",
